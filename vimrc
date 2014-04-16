@@ -1,6 +1,6 @@
 " http://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc
 
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
 
 set nocompatible " use vim defaults
