@@ -19,3 +19,6 @@
 [submodule "bundle/linuxsty"]
 	path = bundle/linuxsty
 	url = https://github.com/vivien/vim-addon-linux-coding-style.git
+[submodule "bundle/solarized"]
+	path = bundle/solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
