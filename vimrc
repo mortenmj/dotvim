@@ -9,7 +9,7 @@ call pathogen#helptags()
 " Leader
 let mapleader = "\\"
 
-set backspace=2   " Backspace deletes like most programs in insert mode
+set backspace=indent,eol,start  " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
@@ -19,13 +19,22 @@ set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
+set scrolloff=10
+set hlsearch
+set background=dark
 set foldmethod=syntax " enable folding
+set foldclose=all
+set foldnestmax=1
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -36,8 +45,8 @@ filetype plugin indent on
 augroup vimrcEx
   autocmd!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+  " For all text files set 'textwidth' to 100 characters.
+  autocmd FileType text setlocal textwidth=100
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
@@ -58,13 +67,13 @@ augroup vimrcEx
   " Enable spellchecking for Markdown
   autocmd FileType markdown setlocal spell
 
-  " Automatically wrap at 80 characters for Markdown
-  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+  " Automatically wrap at 100 characters for Markdown
+  autocmd BufRead,BufNewFile *.md setlocal textwidth=100
 augroup END
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
+" Softtabs, 4 spaces
+set tabstop=4
+set shiftwidth=4
 set expandtab
 
 " Display extra whitespace
@@ -115,10 +124,10 @@ map <Leader>ct :!ctags -R .<CR>
 nnoremap <leader><leader> <c-^>
 
 " Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
+"nnoremap <Left> :echoe "Use h"<CR>
+"nnoremap <Right> :echoe "Use l"<CR>
+"nnoremap <Up> :echoe "Use k"<CR>
+"nnoremap <Down> :echoe "Use j"<CR>
 
 " vim-rspec mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
@@ -137,6 +146,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+inoremap jk <ESC>
 
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
@@ -146,8 +156,6 @@ if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
 
-" Highlight lines that are too long
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.*/
-
 autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp
+
+set cino+=(0
